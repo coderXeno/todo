@@ -104,6 +104,9 @@ export default function TasksPage(){
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {userName && <Avatar>{userName.charAt(0).toUpperCase()}</Avatar>}
                 </Typography>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: "20px" }}>
+                    T R A C K O
+                </Typography>
                 <Button variant="contained" startIcon={<LoginIcon />} onClick = {handleLogout} 
                 >
                     Logout
@@ -142,32 +145,35 @@ export default function TasksPage(){
                     </TableHead>
 
                     <TableBody>
-                        {tasks.map((task, index) => {
-                            return <TableRow
-                                key = {index}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component = "th" scope = "row">{task.taskName}</TableCell>
-                                <TableCell align = "left">{(task.taskDesc).slice(0,20)} ...</TableCell>
-                                <TableCell align = "left">{task.priority}</TableCell>
-                                <TableCell align = "left">{(task.endTime).slice(11, task.endTime.length - 8) + " " + (task.endTime).slice(0, 10)}</TableCell>
-                                <TableCell align = "left">
-                                    <Checkbox
-                                        checked = {delChecked[index]}
-                                        onChange={(event) => handleDelChange(event, task._id)}
-                                        inputProps={{ 'aria-label': 'controlled' }}
-                                    />
-                                </TableCell>
-                                <TableCell align = "left">
-                                    <Fab
-                                        size = "small"
-                                        onClick = {(event) => navigate(`/task-detail/${task.taskId}`)}
-                                    >
-                                        <NewIcon />
-                                    </Fab>
-                                </TableCell>
-                            </TableRow>
-                        })}
+                        {tasks.sort(function(x, y){
+                                return new Date(x.endTime) < new Date(y.endTime) ? 1 : -1
+                            }).map((task, index) => {
+                                return <TableRow
+                                    key = {index}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component = "th" scope = "row">{task.taskName}</TableCell>
+                                    <TableCell align = "left">{(task.taskDesc).slice(0,20)} ...</TableCell>
+                                    <TableCell align = "left">{task.priority}</TableCell>
+                                    <TableCell align = "left">{(task.endTime).slice(11, task.endTime.length - 8) + " " + (task.endTime).slice(0, 10)}</TableCell>
+                                    <TableCell align = "left">
+                                        <Checkbox
+                                            checked = {delChecked[index]}
+                                            onChange={(event) => handleDelChange(event, task._id)}
+                                            inputProps={{ 'aria-label': 'controlled' }}
+                                        />
+                                    </TableCell>
+                                    <TableCell align = "left">
+                                        <Fab
+                                            size = "small"
+                                            onClick = {(event) => navigate(`/task-detail/${task.taskId}`)}
+                                        >
+                                            <NewIcon />
+                                        </Fab>
+                                    </TableCell>
+                                </TableRow>
+                            })
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>
