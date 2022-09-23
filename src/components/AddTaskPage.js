@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -17,6 +19,7 @@ export default function AddTaskPage(){
     const [taskEndDate, setTaskEndDate] = useState();
     const [taskEndTime, setTaskEndTime] = useState();
     const [taskPriority, setTaskPriority] = useState();
+    const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
     const params = useParams();
 
@@ -34,7 +37,19 @@ export default function AddTaskPage(){
         }
     }, []);
 
-    const handleAddTask = (event) => {
+    const notifyAddSuccess = () => {
+        toast.success("Success adding new task!", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
+    const notifyRedirect = () => {
+        toast.warning("You will now be redirected back to the tasks page!", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
+
+    async function handleAddTask(event){
         event.preventDefault();
         console.log(taskEndDate);
         console.log(taskEndTime);
@@ -47,7 +62,7 @@ export default function AddTaskPage(){
                 + '-' + taskEndDate.$D 
                 + "T" + taskEndTime.$H 
                 + ":" + taskEndTime.$m 
-                + ":" + "00" + "+00:00", 
+                + ":" + "00" + "+00:00",
             priority: taskPriority
         }
         console.log(data);
@@ -62,8 +77,23 @@ export default function AddTaskPage(){
         .then((res) => res.json())
         .then(res => {
             console.log(res);
+            if(res.success === "True"){
+                setSuccess(true);
+                notifyAddSuccess();
+                callSleep();
+                notifyRedirect();
+                navigate('/');
+            }
         })
         .catch((err) => console.log(err));
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function callSleep(){
+        await sleep(7000);
     }
 
     return(
@@ -134,6 +164,7 @@ export default function AddTaskPage(){
                     Add Task
                 </Button>
             </form>
+            <ToastContainer />
         </Container>
     );
 };
