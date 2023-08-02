@@ -12,7 +12,8 @@
 /coverage
 
 # production
-/build
+/client/build
+/client/.env
 SVG.jsx
 # misc
 .DS_Store

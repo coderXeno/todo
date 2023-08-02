@@ -3,21 +3,14 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddTaskPage(){
     const [user, setUser] = useState();
     const [taskName, setTaskName] = useState("");
     const [taskDesc, setTaskDesc] = useState("None");
-    // const [taskEndDate, setTaskEndDate] = useState();
-    // const [taskEndTime, setTaskEndTime] = useState();
     const [taskPriority, setTaskPriority] = useState();
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
@@ -51,20 +44,10 @@ export default function AddTaskPage(){
 
     async function handleAddTask(event){
         event.preventDefault();
-        // let endTimeStamp = taskEndDate.$y + '-' + 
-        // (((parseInt(taskEndDate.$M) + 1).toString().length === 2) ? 
-        // (parseInt(taskEndDate.$M) + 1).toString() : 
-        // ("0" + (parseInt(taskEndDate.$M) + 1).toString())) 
-        // + '-' + taskEndDate.$D 
-        // + "T" + taskEndTime.$H 
-        // + ":" + taskEndTime.$m;
-
-        // let finalTimeStamp = new Date(endTimeStamp);
         const data = {
             userName: user.userName,
             taskName: taskName, 
             taskDesc: taskDesc,
-            // endTimeStamp: endTimeStamp,
             priority: taskPriority
         }
 
@@ -128,24 +111,6 @@ export default function AddTaskPage(){
                     sx = {{ marginBottom: "30px" }} 
                     onChange = {(event) => setTaskDesc(event.target.value)} 
                 />
-
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <Stack spacing={3} sx = {{ marginBottom: "30px" }}>
-                        <DesktopDatePicker
-                            label="End Date"
-                            inputFormat="DD/MM/YYYY"
-                            value={taskEndDate}
-                            onChange={(value) => setTaskEndDate(value)}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                        <TimePicker
-                            label="End Time"
-                            value={taskEndTime}
-                            onChange={(value) => setTaskEndTime(value)}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </Stack>
-                </LocalizationProvider> */}
                 <TextField
                     select
                     label="Task Priority"

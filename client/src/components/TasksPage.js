@@ -14,7 +14,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useNavigate, useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
-import Checkbox from '@mui/material/Checkbox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NewIcon from '@mui/icons-material/OpenInNew';
 import AppBar from '@mui/material/AppBar';
@@ -22,7 +21,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import SortIcon from '@mui/icons-material/Sort';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import _ from "lodash";
@@ -32,15 +30,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function TasksPage(){
     const [status, setStatus] = useState("all");
-    const [delChecked, setDelChecked] = useState({});
     const [userDetails, setUserDetails] = useState();
     const [tasks, setTasks] = useState([]);
-    const [prioritySortedTasks, setPrioritySortedTasks] = useState([]);
     const [prioritySort, setPrioritySort] = useState(false);
-    const [delIds, setDelIds] = useState([]);
     const [userName, setUserName] = useState();
     const [itemsPerPage, setItemsPerPage] = useState(5);
-    const [currPage, setCurrPage] = useState(1);
     const [pageNumbers, setPageNumbers] = useState([]);
     const [pageChanged, setPageChanged] = useState(false);
     const handleTabChange = (event, newVal) => {
