@@ -16,8 +16,8 @@ export default function AddTaskPage(){
     const [user, setUser] = useState();
     const [taskName, setTaskName] = useState("");
     const [taskDesc, setTaskDesc] = useState("None");
-    const [taskEndDate, setTaskEndDate] = useState();
-    const [taskEndTime, setTaskEndTime] = useState();
+    // const [taskEndDate, setTaskEndDate] = useState();
+    // const [taskEndTime, setTaskEndTime] = useState();
     const [taskPriority, setTaskPriority] = useState();
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
@@ -51,21 +51,22 @@ export default function AddTaskPage(){
 
     async function handleAddTask(event){
         event.preventDefault();
-        console.log(taskEndDate);
-        console.log(taskEndTime);
+        // let endTimeStamp = taskEndDate.$y + '-' + 
+        // (((parseInt(taskEndDate.$M) + 1).toString().length === 2) ? 
+        // (parseInt(taskEndDate.$M) + 1).toString() : 
+        // ("0" + (parseInt(taskEndDate.$M) + 1).toString())) 
+        // + '-' + taskEndDate.$D 
+        // + "T" + taskEndTime.$H 
+        // + ":" + taskEndTime.$m;
+
+        // let finalTimeStamp = new Date(endTimeStamp);
         const data = {
             userName: user.userName,
             taskName: taskName, 
             taskDesc: taskDesc,
-            endTimeStamp: taskEndDate.$y + '-' + 
-                (((parseInt(taskEndDate.$M) + 1).toString().length === 2) ? (parseInt(taskEndDate.$M) + 1).toString() : ("0" + (parseInt(taskEndDate.$M) + 1).toString())) 
-                + '-' + taskEndDate.$D 
-                + "T" + taskEndTime.$H 
-                + ":" + taskEndTime.$m 
-                + ":" + "00" + "+00:00",
+            // endTimeStamp: endTimeStamp,
             priority: taskPriority
         }
-        console.log(data);
 
         fetch(`/api/add-task/${user.userId}/`, {
             method: "POST",
@@ -128,7 +129,7 @@ export default function AddTaskPage(){
                     onChange = {(event) => setTaskDesc(event.target.value)} 
                 />
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Stack spacing={3} sx = {{ marginBottom: "30px" }}>
                         <DesktopDatePicker
                             label="End Date"
@@ -144,7 +145,7 @@ export default function AddTaskPage(){
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </Stack>
-                </LocalizationProvider>
+                </LocalizationProvider> */}
                 <TextField
                     select
                     label="Task Priority"

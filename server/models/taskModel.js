@@ -25,12 +25,17 @@ const taskModel = new mongoose.Schema({
         type: Date,
         required: true
     },
-    endTime: {
-        type: Date,
-        required: true
-    },
+    // endTime: {
+    //     type: Date,
+    //     required: true
+    // },
     priority: {
         type: String,
+        required: true
+    },
+    completed: {
+        type: Boolean,
+        default: false,
         required: true
     }
 });

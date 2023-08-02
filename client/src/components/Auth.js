@@ -14,7 +14,6 @@ export default function Auth() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Stuff");
         const checkPrevLogin = localStorage.getItem("tracko-app");
 
         if (checkPrevLogin) {
@@ -89,8 +88,8 @@ export default function Auth() {
                 signInStatus ?
                     <form style={{ display: "flex", flexDirection: "column" }}>
                         <h3 style={{ marginBottom: "20px", color: "white", textAlign: "center" }} >Login to Tracko</h3>
-                        <TextField required id="outlined-basic" label="Username" variant="outlined" sx={{ marginBottom: "30px" }} onChange={(event) => setUserName(event.target.value)} />
-                        <TextField required id="outlined-basic" label="Password" variant="outlined" sx={{ marginBottom: "30px" }} onChange={(event) => setPassword(event.target.value)} />
+                        <TextField required id="outlined-basic" label="Username" variant="outlined" sx={{ marginBottom: "30px", background: "white" }} onChange={(event) => setUserName(event.target.value)} />
+                        <TextField required id="outlined-basic" label="Password" variant="outlined" sx={{ marginBottom: "30px", background: "white" }} onChange={(event) => setPassword(event.target.value)} />
                         <Button variant="contained" startIcon={<LoginIcon />} onClick={handleLogin} disabled = { username.length > 0 && pwd.length > 0 ? false : true }>
                             Login
                         </Button>
@@ -100,9 +99,9 @@ export default function Auth() {
                     </form> :
                     <form style={{ display: "flex", flexDirection: "column" }}>
                         <h3 style={{ marginBottom: "20px", color: "white", textAlign: "center" }} >Sign Up</h3>
-                        <TextField required id="outlined-basic" label="Email" variant="outlined" sx={{ marginBottom: "30px" }} onChange={(event) => setEmail(event.target.value)} />
-                        <TextField required id="outlined-basic" label="Username" variant="outlined" sx={{ marginBottom: "30px" }} onChange={(event) => setUserName(event.target.value)} />
-                        <TextField required id="outlined-basic" label="Password" variant="outlined" sx={{ marginBottom: "30px" }} onChange={(event) => setPassword(event.target.value)} />
+                        <TextField required id="outlined-basic" label="Email" variant="outlined" sx={{ marginBottom: "30px", background: "white" }} onChange={(event) => setEmail(event.target.value)} />
+                        <TextField required id="outlined-basic" label="Username" variant="outlined" sx={{ marginBottom: "30px", background: "white" }} onChange={(event) => setUserName(event.target.value)} />
+                        <TextField required id="outlined-basic" label="Password" variant="outlined" sx={{ marginBottom: "30px", background: "white" }} onChange={(event) => setPassword(event.target.value)} />
                         <Button variant="contained" startIcon={<LoginIcon />} onClick={handleRegister} disabled = { userEmail.length > 0 && username.length > 0 && pwd.length > 0 ? false : true } >
                             Register For Tracko
                         </Button>
