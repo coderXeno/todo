@@ -43,6 +43,7 @@ export default function TasksPage(){
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("tracko-app"));
     const params = useParams();
+    const BASE_URL = "https://tracko-we0x.onrender.com";
 
     useEffect(() => {
         if(user){
@@ -51,7 +52,7 @@ export default function TasksPage(){
             navigate("/");
         }
 
-        fetch(`/api/get-tasks/${user.userId}/`, {
+        fetch(`${BASE_URL}/api/get-tasks/${user.userId}/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -79,7 +80,7 @@ export default function TasksPage(){
     };
 
     const handleDeleteTask = (event, taskId) => {
-        axios.post(`/api/delete-task/${taskId}/${params.userId}/`)
+        axios.post(`${BASE_URL}/api/delete-task/${taskId}/${params.userId}/`)
             .then((res) => {
                 setPageChanged((prev) => !prev);
                 toast.success("Task Deleted Successfully!");
@@ -113,7 +114,7 @@ export default function TasksPage(){
     };
 
     const handleCompleteTask = (event, taskId) => {
-        axios.post(`/api/complete-task/${taskId}/${params.userId}/`)
+        axios.post(`${BASE_URL}/api/complete-task/${taskId}/${params.userId}/`)
             .then((res) => {
                 setPageChanged((prev) => !prev);
                 toast.success("Task Completed Successfully!");

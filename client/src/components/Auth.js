@@ -12,6 +12,7 @@ export default function Auth() {
     const [username, setUserName] = useState("");
     const [pwd, setPassword] = useState("");
     const navigate = useNavigate();
+    const BASE_URL = "https://tracko-we0x.onrender.com";
 
     useEffect(() => {
         const checkPrevLogin = localStorage.getItem("tracko-app");
@@ -31,7 +32,7 @@ export default function Auth() {
         }
         console.log(data);
 
-        fetch(`/api/login/`, {
+        fetch(`${BASE_URL}/api/login/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -55,7 +56,7 @@ export default function Auth() {
             password: pwd
         }
 
-        fetch(`/api/register/`, {
+        fetch(`${BASE_URL}/api/register/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

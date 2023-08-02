@@ -15,6 +15,7 @@ export default function AddTaskPage(){
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
     const params = useParams();
+    const BASE_URL = "https://tracko-we0x.onrender.com";
 
     useEffect(() => {
         const checkPrevLogin = localStorage.getItem("tracko-app");
@@ -51,7 +52,7 @@ export default function AddTaskPage(){
             priority: taskPriority
         }
 
-        fetch(`/api/add-task/${user.userId}/`, {
+        fetch(`${BASE_URL}/api/add-task/${user.userId}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

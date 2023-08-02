@@ -30,6 +30,7 @@ export default function TaskDetail(){
     const [newTaskPriority, setNewTaskPriority] = useState();
     const [pageChanged, setPageChanged] = useState(false);
     const navigate = useNavigate();
+    const BASE_URL = "https://tracko-we0x.onrender.com";
 
     useEffect(() => {
         const checkPrevLogin = localStorage.getItem("tracko-app");
@@ -39,7 +40,7 @@ export default function TaskDetail(){
             setUser(JSON.parse(checkPrevLogin));
         }
 
-        fetch(`/api/task-detail/${taskId}/`, {
+        fetch(`${BASE_URL}/api/task-detail/${taskId}/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -62,7 +63,7 @@ export default function TaskDetail(){
             priority: newTaskPriority
         };
 
-        axios.post(`/api/edit-task/${params.taskId}/${user.userId}/`, data)
+        axios.post(`${BASE_URL}/api/edit-task/${params.taskId}/${user.userId}/`, data)
             .then((res) => {
                 setPageChanged((prev) => !prev);
                 toast.success(res.data.message);
@@ -76,7 +77,7 @@ export default function TaskDetail(){
     };
 
     const handleDelTask = (event) => {
-        axios.post(`/api/delete-task/${taskId}/${user.userId}/`)
+        axios.post(`${BASE_URL}/api/delete-task/${taskId}/${user.userId}/`)
             .then((res) => {
                 navigate(`/home/${user.userId}`)
             })
